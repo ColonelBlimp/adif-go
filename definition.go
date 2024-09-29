@@ -6,8 +6,8 @@ type Header struct {
 }
 
 type Qso struct {
-	StationContacted ContactedStation
-	StationLogging   LoggingStation
+	ContactedStation ContactedStation
+	LoggingStation   LoggingStation
 	AntPath          string `json:"ant_path"`
 	AntSect          string `json:"ant_sect"`
 	AIndex           string `json:"a_index"`

@@ -8,31 +8,7 @@ import (
 )
 
 func TestRecord(t *testing.T) {
-	rec := Record{
-		HEADER: Header{},
-		QSO: Qso{
-			StationContacted: ContactedStation{},
-			StationLogging:   LoggingStation{},
-			AntPath:          "",
-			AntSect:          "",
-			AIndex:           "",
-			Band:             "",
-			Comment:          "",
-			CommentIntl:      "",
-			Distance:         "",
-			Freq:             "",
-			KIndex:           "",
-			Mode:             "",
-			QsoDate:          "",
-			QsoDateOff:       "",
-			QsoRandom:        "",
-			RstRcvd:          "",
-			RstSent:          "",
-			TimeOff:          "",
-			TimeOn:           "",
-		},
-		QSL: Qsl{},
-	}
+	rec := New()
 
 	data, err := json.Marshal(rec)
 	if err != nil {
