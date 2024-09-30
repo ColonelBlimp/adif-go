@@ -28,7 +28,7 @@ func errorTagFunc[T interface{}](obj interface{}, snp string, fieldname, actualT
 		return nil
 	}
 
-	fieldArr := strings.Split(snp, ".")
+	fieldArr := strings.Split(snp, dotStr)
 	rsf := reflect.TypeOf(o)
 
 	for i := 1; i < len(fieldArr); i++ {
@@ -36,7 +36,7 @@ func errorTagFunc[T interface{}](obj interface{}, snp string, fieldname, actualT
 		if found {
 			if fieldArr[i] == fieldname {
 				customMessage := field.Tag.Get(errMsgTag)
-				if customMessage != "" {
+				if customMessage != emptyStr {
 					return fmt.Errorf("%s: %s (%s)", fieldname, customMessage, actualTag)
 				}
 				return nil
@@ -58,7 +58,7 @@ func ValidateFunc[T interface{}](obj interface{}, validate *validator.Validate) 
 
 	defer func() {
 		if r := recover(); r != nil {
-			errs = fmt.Errorf("can't validate %+v", r)
+			errs = fmt.Errorf("unable to validate: %+v", r)
 		}
 	}()
 
@@ -90,7 +90,7 @@ func validateFrequency(fl validator.FieldLevel) bool {
 	if !isNthRuneFromRightEqual(freq, 4, '.') {
 		return false
 	}
-	parts := strings.Split(freq, ".")
+	parts := strings.Split(freq, emptyStr)
 	if !isAllDigits(parts[0]) || !isAllDigits(parts[1]) {
 		return false
 	}

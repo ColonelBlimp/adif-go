@@ -4,9 +4,16 @@ import (
 	"fmt"
 	"github.com/go-playground/validator/v10"
 	"reflect"
+	"strings"
 )
 
-const errMsgTag = "errormsg"
+const (
+	adifFormat    = "<%s:%d>%s"
+	errMsgTag     = "errormsg"
+	jsonStructTag = "json"
+	emptyStr      = ""
+	dotStr        = "."
+)
 
 // NewRecord creates a new ADI Record object
 func NewRecord(qso *Qso) (*Record, error) {
@@ -50,40 +57,37 @@ func (r *Record) Validate() error {
 }
 
 func (r *Record) ADIString() string {
-	val := reflect.ValueOf(r).Elem()
 	var result string
 
-	for i := 0; i < val.NumField(); i++ {
-		field := val.Field(i)
-		fieldType := val.Type().Field(i)
-
-		if fieldType.Name == "validate" {
-			continue
-		}
-
-		if field.Kind() == reflect.Ptr {
-			field = field.Elem()
-		}
-
-		if field.Kind() == reflect.Struct {
-			for j := 0; j < field.NumField(); j++ {
-				nestedField := field.Field(j)
-				nestedFieldType := field.Type().Field(j)
-				if nestedField.Kind() == reflect.Ptr {
-					nestedField = nestedField.Elem()
-				}
-				if nestedField.Kind() == reflect.String && nestedField.String() != "" {
-					result += formatField(nestedFieldType.Name, nestedField.String())
-				}
+	var parseStruct func(v reflect.Value)
+	parseStruct = func(v reflect.Value) {
+		for i := 0; i < v.NumField(); i++ {
+			fieldName := v.Type().Field(i).Name
+			if fieldName == "validate" {
+				continue
 			}
-		} else if field.Kind() == reflect.String && field.String() != "" {
-			result += formatField(fieldType.Name, field.String())
+
+			field := v.Field(i)
+			if field.Kind() == reflect.Ptr {
+				field = field.Elem()
+			}
+
+			if field.Kind() == reflect.Struct {
+				parseStruct(field)
+				continue
+			}
+
+			if field.Kind() == reflect.String && field.String() != emptyStr {
+				tag := v.Type().Field(i).Tag.Get(jsonStructTag)
+				result += formatField(tag, field.String())
+			}
 		}
 	}
 
-	return result + "<eor>"
+	parseStruct(reflect.ValueOf(r).Elem())
+	return result + "<EOR>"
 }
 
-func formatField(fieldName string, fieldValue string) string {
-	return fmt.Sprintf("<%s:%d>%s", fieldName, len(fieldValue), fieldValue)
+func formatField(tagName string, value string) string {
+	return fmt.Sprintf(adifFormat, strings.ToUpper(tagName), len(value), value)
 }

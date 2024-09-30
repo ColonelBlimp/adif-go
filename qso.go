@@ -13,10 +13,18 @@ func NewQso(band, frequency, mode, qsoDate, timeOn, rstRcvd, rstSent string) *Qs
 	}
 }
 
-func (q *Qso) SetLoggingStation(ptr *LoggingStation) {
+func (q *Qso) SetLoggingStation(ptr *LoggingStation) error {
+	if ptr == nil {
+		return ErrorNilLoggingStation
+	}
 	q.LoggingStation = ptr
+	return nil
 }
 
-func (q *Qso) SetContactedStation(ptr *ContactedStation) {
+func (q *Qso) SetContactedStation(ptr *ContactedStation) error {
+	if ptr == nil {
+		return ErrorNilContactedStation
+	}
 	q.ContactedStation = ptr
+	return nil
 }
