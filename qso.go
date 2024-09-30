@@ -2,6 +2,7 @@
 
 package adif
 
+// NewQso creates a new Qso object
 func NewQso(band, frequency, mode, qsoDate, timeOn, rstRcvd, rstSent string) *Qso {
 	return &Qso{
 		Band:    band,
