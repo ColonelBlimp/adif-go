@@ -3,7 +3,8 @@ checks:
 
 build:
   environment:
-    go: 'go1.23.1'
+    go:
+        version: 'go1.23.1'
   nodes:
     coverage:
       tests:
@@ -13,3 +14,8 @@ build:
             coverage:
               file: 'cover.out'
               format: 'go-cc'
+    tests:
+      environment:
+        go:
+          version: 'go1.23.1'
+
