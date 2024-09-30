@@ -1,5 +1,3 @@
-//go:build windows
-
 package adif
 
 // NewQso creates a new Qso object

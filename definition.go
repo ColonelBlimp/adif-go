@@ -1,5 +1,3 @@
-//go:build windows
-
 package adif
 
 import "github.com/go-playground/validator/v10"

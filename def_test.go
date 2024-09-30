@@ -1,5 +1,3 @@
-//go:build windows
-
 package adif
 
 import (
@@ -19,10 +17,14 @@ func TestRecord(t *testing.T) {
 		t.Error(err)
 		t.FailNow()
 	}
-	if err = rec.Validate(); err != nil {
+
+	if err = rec.SetQsl(NewQsl()); err != nil {
 		t.Error(err)
 		t.FailNow()
 	}
 
-	t.Log(rec)
+	if err = rec.Validate(); err != nil {
+		t.Error(err)
+		t.FailNow()
+	}
 }

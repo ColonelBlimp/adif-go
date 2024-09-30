@@ -1,5 +1,3 @@
-//go:build windows
-
 package adif
 
 func NewLoggingStation(stationCallsign, name string) *LoggingStation {
