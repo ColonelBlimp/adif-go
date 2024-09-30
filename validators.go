@@ -8,12 +8,7 @@ import (
 	"github.com/go-playground/validator/v10"
 	"reflect"
 	"strings"
-	"unicode"
 )
-
-func frequencyCheck(fl validator.FieldLevel) bool {
-	return false
-}
 
 func errorTagFunc[T interface{}](obj interface{}, snp string, fieldname, actualTag string) error {
 	o := obj.(T)
@@ -29,7 +24,7 @@ func errorTagFunc[T interface{}](obj interface{}, snp string, fieldname, actualT
 		field, found := rsf.FieldByName(fieldArr[i])
 		if found {
 			if fieldArr[i] == fieldname {
-				customMessage := field.Tag.Get(tagCustom)
+				customMessage := field.Tag.Get(errMsgTag)
 				if customMessage != "" {
 					return fmt.Errorf("%s: %s (%s)", fieldname, customMessage, actualTag)
 				}
@@ -93,22 +88,22 @@ func validateFrequency(fl validator.FieldLevel) bool {
 	return true
 }
 
-func isNthRuneFromRightEqual(s string, n int, char rune) bool {
-	runes := []rune(s) // Convert the string to a slice of runes
-	if n > len(runes) || n <= 0 {
-		return false // Out of bounds, return false
+func validateBand(fl validator.FieldLevel) bool {
+	band := fl.Field().String()
+	switch band {
+	case "160m", "80m", "40m", "30m", "20m", "17m", "15m", "12m", "10m", "6m", "2m", "70cm", "23cm", "13cm", "9cm", "6cm", "3cm", "1.25cm":
+		return true
+	default:
+		return false
 	}
-	return runes[len(runes)-n] == char
 }
 
-func isAllDigits(s string) bool {
-	if len(s) == 0 {
-		return false // Consider empty string as not all digits
+func validateMode(fl validator.FieldLevel) bool {
+	mode := fl.Field().String()
+	switch mode {
+	case "AM", "FM", "SSB", "LSB", "USB", "CW", "RTTY": //TODO: Complete
+		return true
+	default:
+		return false
 	}
-	for _, char := range s {
-		if !unicode.IsDigit(char) {
-			return false
-		}
-	}
-	return true
 }

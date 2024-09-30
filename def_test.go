@@ -10,7 +10,7 @@ func TestRecord(t *testing.T) {
 	contactedStation := NewContactedStation("XX1XXX")
 	loggingStation := NewLoggingStation("Y1YY", "My Name")
 
-	qso := NewQso("15m", "21.25", "USB", "20240929", "1621", "59", "59")
+	qso := NewQso("15m", "21.250", "USB", "20240929", "1621", "59", "59")
 	qso.SetLoggingStation(loggingStation)
 	qso.SetContactedStation(contactedStation)
 

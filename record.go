@@ -6,11 +6,13 @@ import (
 	"github.com/go-playground/validator/v10"
 )
 
-const tagCustom = "errormsg"
+const errMsgTag = "errormsg"
 
 func NewRecord(qso *Qso) *Record {
 	validate := validator.New()
-	validate.RegisterValidation("freqency-check", frequencyCheck)
+	validate.RegisterValidation("freqency-check", validateFrequency)
+	validate.RegisterValidation("band-check", validateBand)
+	validate.RegisterValidation("mode-check", validateMode)
 
 	return &Record{
 		validate: validate,
