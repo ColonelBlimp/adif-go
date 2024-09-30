@@ -8,16 +8,22 @@ import (
 
 const errMsgTag = "errormsg"
 
-func NewRecord(qso *Qso) *Record {
+func NewRecord(qso *Qso) (*Record, error) {
 	validate := validator.New()
-	validate.RegisterValidation("freqency-check", validateFrequency)
-	validate.RegisterValidation("band-check", validateBand)
-	validate.RegisterValidation("mode-check", validateMode)
+	if err := validate.RegisterValidation("freqency-check", validateFrequency); err != nil {
+		return nil, err
+	}
+	if err := validate.RegisterValidation("band-check", validateBand); err != nil {
+		return nil, err
+	}
+	if err := validate.RegisterValidation("mode-check", validateMode); err != nil {
+		return nil, err
+	}
 
 	return &Record{
 		validate: validate,
 		QSO:      qso,
-	}
+	}, nil
 }
 
 func (r *Record) SetHeader(ptr *Header) error {
