@@ -20,7 +20,8 @@ type Qso struct {
 	Freq             string `json:"freq" validate:"freqency-check" errormsg:"Invalid frequency"` // Freq: QSO frequency in Megahertz
 	KIndex           string `json:"k_index,omitempty"`
 	Mode             string `json:"mode" validate:"mode-check" errormsg:"Invalid mode"` // Mode: the QSO mode
-	QsoDate          string `json:"qso_date" validate:"required,len=8,numeric"`         // QsoDate: the QSO date in the format YYYYMMDD
+	QsoComplete      string `json:"qso_complete,omitempty"`
+	QsoDate          string `json:"qso_date" validate:"required,len=8,numeric"` // QsoDate: the QSO date in the format YYYYMMDD
 	QsoDateOff       string `json:"qso_date_off,omitempty"`
 	QsoRandom        string `json:"qso_random,omitempty"`
 	RstRcvd          string `json:"rst_rcvd" validate:"required,min=2,max=3,numeric"` // RstRcvd: the RST code received
@@ -114,6 +115,14 @@ type LoggingStation struct {
 }
 
 type Qsl struct {
+	QslMsg     string `json:"qslmsg,omitempty"`
+	QslMsgIntl string `json:"qslmsg_intl,omitempty"`
+	QslRDate   string `json:"qslrdate,omitempty"`
+	QslSDate   string `json:"qslsdate,omitempty"`
+	QslRcvd    string `json:"qsl_rcvd" validate:"required,len=1"` // QslRcvd: the QSL received status
+	QslSent    string `json:"qsl_sent" validate:"required,len=1"` // QslSent: the QSL sent status
+	QslSentVia string `json:"qsl_sent_via,omitempty"`
+	QslVia     string `json:"qsl_via,omitempty"`
 }
 
 type Record struct {
