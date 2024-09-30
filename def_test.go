@@ -27,4 +27,6 @@ func TestRecord(t *testing.T) {
 		t.Error(err)
 		t.FailNow()
 	}
+
+	t.Log(rec.ADIString())
 }

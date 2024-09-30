@@ -126,6 +126,6 @@ type Qsl struct {
 type Record struct {
 	validate *validator.Validate
 	HEADER   *Header
-	QSO      *Qso `validate:"required"`
+	QSO      *Qso
 	QSL      *Qsl
 }
