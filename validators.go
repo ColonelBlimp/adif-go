@@ -8,6 +8,19 @@ import (
 	"strings"
 )
 
+func registerValidators(validate *validator.Validate) error {
+	if err := validate.RegisterValidation("freqency-check", validateFrequency); err != nil {
+		return err
+	}
+	if err := validate.RegisterValidation("band-check", validateBand); err != nil {
+		return err
+	}
+	if err := validate.RegisterValidation("mode-check", validateMode); err != nil {
+		return err
+	}
+	return nil
+}
+
 func errorTagFunc[T interface{}](obj interface{}, snp string, fieldname, actualTag string) error {
 	o := obj.(T)
 

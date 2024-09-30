@@ -11,14 +11,9 @@ func NewRecord(qso *Qso) (*Record, error) {
 	if qso == nil {
 		return nil, ErrorNilQso
 	}
+
 	validate := validator.New()
-	if err := validate.RegisterValidation("freqency-check", validateFrequency); err != nil {
-		return nil, err
-	}
-	if err := validate.RegisterValidation("band-check", validateBand); err != nil {
-		return nil, err
-	}
-	if err := validate.RegisterValidation("mode-check", validateMode); err != nil {
+	if err := registerValidators(validate); err != nil {
 		return nil, err
 	}
 
