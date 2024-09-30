@@ -3,18 +3,20 @@
 package adif
 
 import (
-	"encoding/json"
 	"testing"
 )
 
 func TestRecord(t *testing.T) {
-	rec := New()
+	contactedStation := NewContactedStation("XX1XXX")
+	loggingStation := NewLoggingStation("Y1YY", "My Name")
 
-	data, err := json.Marshal(rec)
-	if err != nil {
+	qso := NewQso("15m", "21.25", "USB", "20240929", "1621", "59", "59")
+	qso.SetLoggingStation(loggingStation)
+	qso.SetContactedStation(contactedStation)
+
+	rec := NewRecord(qso)
+	if err := rec.Validate(); err != nil {
 		t.Error(err)
 		t.FailNow()
 	}
-
-	t.Log(string(data))
 }
