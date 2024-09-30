@@ -13,8 +13,17 @@ func TestRecord(t *testing.T) {
 		t.Error(err)
 		t.FailNow()
 	}
-	if err = qso.Validate(); err != nil {
+	if err = qso.Validate(); err == nil {
+		t.Log("Expected an error as the ContactedStation is not set")
+		t.FailNow()
+	}
+
+	if err = qso.SetContactedStation(contactedStation); err != nil {
 		t.Error(err)
+		t.FailNow()
+	}
+	if err = qso.Validate(); err == nil {
+		t.Log("Expected an error as the LoggingStation is not set")
 		t.FailNow()
 	}
 
@@ -23,7 +32,7 @@ func TestRecord(t *testing.T) {
 		t.FailNow()
 	}
 
-	if err = qso.SetContactedStation(contactedStation); err != nil {
+	if err = qso.Validate(); err != nil {
 		t.Error(err)
 		t.FailNow()
 	}

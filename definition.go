@@ -4,26 +4,26 @@ type Header struct {
 }
 
 type Qso struct {
-	ContactedStation *ContactedStation
-	LoggingStation   *LoggingStation
-	AntPath          string `json:"ant_path,omitempty"`
-	AntSect          string `json:"ant_sect,omitempty"`
-	AIndex           string `json:"a_index,omitempty"`
-	Band             string `json:"band" validate:"band-check" errormsg:"Invalid band"` // Band: the QSO band
-	Comment          string `json:"comment,omitempty"`
-	CommentIntl      string `json:"comment_intl,omitempty"`
-	Distance         string `json:"distance,omitempty"`
-	Freq             string `json:"freq" validate:"freqency-check" errormsg:"Invalid frequency"` // Freq: QSO frequency in Megahertz
-	KIndex           string `json:"k_index,omitempty"`
-	Mode             string `json:"mode" validate:"mode-check" errormsg:"Invalid mode"` // Mode: the QSO mode
-	QsoComplete      string `json:"qso_complete,omitempty"`
-	QsoDate          string `json:"qso_date" validate:"required,len=8,numeric"` // QsoDate: the QSO date in the format YYYYMMDD
-	QsoDateOff       string `json:"qso_date_off,omitempty"`
-	QsoRandom        string `json:"qso_random,omitempty"`
-	RstRcvd          string `json:"rst_rcvd" validate:"required,min=2,max=3,numeric"` // RstRcvd: the RST code received
-	RstSent          string `json:"rst_sent" validate:"required,min=2,max=3,numeric"` // RstSent: the RST code sent
-	TimeOff          string `json:"time_off,omitempty"`
-	TimeOn           string `json:"time_on" validate:"required,len=4,numeric"` // TimeOn: the QSO time in the format HHMM
+	ContactedStation *ContactedStation `validate:"required" errormsg:"Contacted station is required"`
+	LoggingStation   *LoggingStation   `validate:"required" errormsg:"Logging station is required"`
+	AntPath          string            `json:"ant_path,omitempty"`
+	AntSect          string            `json:"ant_sect,omitempty"`
+	AIndex           string            `json:"a_index,omitempty"`
+	Band             string            `json:"band" validate:"band-check" errormsg:"Invalid band"` // Band: the QSO band
+	Comment          string            `json:"comment,omitempty"`
+	CommentIntl      string            `json:"comment_intl,omitempty"`
+	Distance         string            `json:"distance,omitempty"`
+	Freq             string            `json:"freq" validate:"freqency-check" errormsg:"Invalid frequency"` // Freq: QSO frequency in Megahertz
+	KIndex           string            `json:"k_index,omitempty"`
+	Mode             string            `json:"mode" validate:"mode-check" errormsg:"Invalid mode"` // Mode: the QSO mode
+	QsoComplete      string            `json:"qso_complete,omitempty"`
+	QsoDate          string            `json:"qso_date" validate:"required,len=8,numeric"` // QsoDate: the QSO date in the format YYYYMMDD
+	QsoDateOff       string            `json:"qso_date_off,omitempty"`
+	QsoRandom        string            `json:"qso_random,omitempty"`
+	RstRcvd          string            `json:"rst_rcvd" validate:"required,min=2,max=3,numeric"` // RstRcvd: the RST code received
+	RstSent          string            `json:"rst_sent" validate:"required,min=2,max=3,numeric"` // RstSent: the RST code sent
+	TimeOff          string            `json:"time_off,omitempty"`
+	TimeOn           string            `json:"time_on" validate:"required,len=4,numeric"` // TimeOn: the QSO time in the format HHMM
 }
 
 type ContactedStation struct {
