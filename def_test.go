@@ -14,8 +14,12 @@ func TestRecord(t *testing.T) {
 	qso.SetLoggingStation(loggingStation)
 	qso.SetContactedStation(contactedStation)
 
-	rec := NewRecord(qso)
-	if err := rec.Validate(); err != nil {
+	rec, err := NewRecord(qso)
+	if err != nil {
+		t.Error(err)
+		t.FailNow()
+	}
+	if err = rec.Validate(); err != nil {
 		t.Error(err)
 		t.FailNow()
 	}
