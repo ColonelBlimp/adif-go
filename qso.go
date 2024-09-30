@@ -1,7 +1,16 @@
 package adif
 
+import "github.com/go-playground/validator/v10"
+
 // NewQso creates a new Qso object
-func NewQso(band, frequency, mode, qsoDate, timeOn, rstRcvd, rstSent string) *Qso {
+func NewQso(band, frequency, mode, qsoDate, timeOn, rstRcvd, rstSent string) (*Qso, error) {
+	if validate == nil {
+		validate = validator.New()
+		if err := registerValidators(validate); err != nil {
+			return nil, err
+		}
+	}
+
 	return &Qso{
 		Band:    band,
 		Freq:    frequency,
@@ -10,7 +19,11 @@ func NewQso(band, frequency, mode, qsoDate, timeOn, rstRcvd, rstSent string) *Qs
 		RstRcvd: rstRcvd,
 		RstSent: rstSent,
 		TimeOn:  timeOn,
-	}
+	}, nil
+}
+
+func (q *Qso) Validate() error {
+	return ValidateFunc[Qso](*q, validate)
 }
 
 func (q *Qso) SetLoggingStation(ptr *LoggingStation) error {

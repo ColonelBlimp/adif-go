@@ -1,7 +1,5 @@
 package adif
 
-import "github.com/go-playground/validator/v10"
-
 type Header struct {
 }
 
@@ -124,8 +122,7 @@ type Qsl struct {
 }
 
 type Record struct {
-	validate *validator.Validate
-	HEADER   *Header
-	QSO      *Qso
-	QSL      *Qsl
+	HEADER *Header
+	QSO    *Qso
+	QSL    *Qsl
 }
