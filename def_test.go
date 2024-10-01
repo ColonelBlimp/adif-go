@@ -5,6 +5,28 @@ import (
 )
 
 func TestRecord(t *testing.T) {
+	qso := createQSOObject(t)
+
+	rec, err := NewRecord(qso)
+	if err != nil {
+		t.Error(err)
+		t.FailNow()
+	}
+
+	if err = rec.SetQsl(NewQsl()); err != nil {
+		t.Error(err)
+		t.FailNow()
+	}
+
+	if err = rec.Validate(); err != nil {
+		t.Error(err)
+		t.FailNow()
+	}
+
+	t.Log(rec.ADIString())
+}
+
+func createQSOObject(t *testing.T) *Qso {
 	contactedStation := NewContactedStation("XX1XXX")
 	loggingStation := NewLoggingStation("Y1YY", "My Name")
 
@@ -37,22 +59,5 @@ func TestRecord(t *testing.T) {
 		t.FailNow()
 	}
 
-	var rec *Record
-	rec, err = NewRecord(qso)
-	if err != nil {
-		t.Error(err)
-		t.FailNow()
-	}
-
-	if err = rec.SetQsl(NewQsl()); err != nil {
-		t.Error(err)
-		t.FailNow()
-	}
-
-	if err = rec.Validate(); err != nil {
-		t.Error(err)
-		t.FailNow()
-	}
-
-	t.Log(rec.ADIString())
+	return qso
 }

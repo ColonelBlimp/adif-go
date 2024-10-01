@@ -5,17 +5,7 @@ build:
   environment:
     go:
         version: 'go1.23.1'
-  nodes:
-    coverage:
-      tests:
-        override:
-          -
-            command: go test -coverprofile='cover.out'
-            coverage:
-              file: 'cover.out'
-              format: 'go-cc'
     tests:
       environment:
         go:
           version: 'go1.23.1'
-
