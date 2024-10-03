@@ -48,7 +48,7 @@ type ContactedStation struct {
 	ITUZ          string `json:"ituz,omitempty"`           // ITUZ: the contacted station's ITU zone in the range 1 to 90 (inclusive)
 	Lat           string `json:"lat,omitempty"`            // Lat: the contacted station's latitude
 	Lon           string `json:"lon,omitempty"`            // Lon: the contacted station's longitude
-	Name          string `json:"name,omitempty"`           // Name: the contacted station's operator's name
+	Name          string `json:"name" validate:"required"` // Name: the contacted station's operator's name
 	NameIntl      string `json:"name_intl,omitempty"`
 	PFX           string `json:"pfx,omitempty"`
 	PotaRef       string `json:"pota_ref,omitempty"`
@@ -87,8 +87,8 @@ type LoggingStation struct {
 	ItuZone         string `json:"my_itu_zone,omitempty"`
 	Lat             string `json:"my_lat,omitempty"`
 	Lon             string `json:"my_lon,omitempty"`
-	Name            string `json:"my_name" validate:"required"` // Name: the logging operator's name
-	NameIntl        string `json:"my_name_intl,omitempty"`      // NameIntl: the logging operator's name
+	Name            string `json:"my_name"`                // Name: the logging operator's name
+	NameIntl        string `json:"my_name_intl,omitempty"` // NameIntl: the logging operator's name
 	PostalCode      string `json:"my_postal_code,omitempty"`
 	PostalCodeIntl  string `json:"my_postal_code_intl,omitempty"`
 	PotaRef         string `json:"my_pota_ref,omitempty"`

@@ -55,5 +55,5 @@ The required fields for a valid QSO are:
 - Qso.RstSent
 - Qso.TimeOn
 - ContactStation.Call
-- LoggingStation.Name
+- ContactStation.Name
 - LoggingStation.StationCallsign

@@ -29,8 +29,8 @@ func TestRecord(t *testing.T) {
 }
 
 func createQSOObject(t *testing.T) *Qso {
-	contactedStation := NewContactedStation("XX1XXX")
-	loggingStation := NewLoggingStation("Y1YY", "My Name")
+	contactedStation := NewContactedStation("XX1XXX", "Their Name")
+	loggingStation := NewLoggingStation("Y1YY")
 
 	qso, err := NewQso("15m", "21.250", "USB", "20240929", "1621", "59", "59")
 	if err != nil {

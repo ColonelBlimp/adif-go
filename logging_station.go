@@ -1,8 +1,7 @@
 package adif
 
-func NewLoggingStation(stationCallsign, name string) *LoggingStation {
+func NewLoggingStation(stationCallsign string) *LoggingStation {
 	return &LoggingStation{
-		Name:            name,
 		StationCallsign: stationCallsign,
 	}
 }
