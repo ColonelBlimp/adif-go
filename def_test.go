@@ -7,6 +7,8 @@ import (
 func TestRecord(t *testing.T) {
 	qso := createQSOObject(t)
 
+	t.Log(qso.ADIString())
+
 	rec, err := NewRecord(qso)
 	if err != nil {
 		t.Error(err)

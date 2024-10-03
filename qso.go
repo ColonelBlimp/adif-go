@@ -41,3 +41,7 @@ func (q *Qso) SetContactedStation(ptr *ContactedStation) error {
 	q.ContactedStation = ptr
 	return nil
 }
+
+func (q *Qso) ADIString() string {
+	return parseStructToADIString(q) + eorStr
+}
