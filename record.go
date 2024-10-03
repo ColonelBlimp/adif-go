@@ -58,34 +58,5 @@ func (r *Record) Validate() error {
 }
 
 func (r *Record) ADIString() string {
-	//	var result string
-
-	//var parseStruct func(v reflect.Value)
-	//parseStruct = func(v reflect.Value) {
-	//	for i := 0; i < v.NumField(); i++ {
-	//		fieldName := v.Type().Field(i).Name
-	//		if fieldName == "validate" {
-	//			continue
-	//		}
-	//
-	//		field := v.Field(i)
-	//		if field.Kind() == reflect.Ptr {
-	//			field = field.Elem()
-	//		}
-	//
-	//		if field.Kind() == reflect.Struct {
-	//			parseStruct(field)
-	//			continue
-	//		}
-	//
-	//		if field.Kind() == reflect.String && field.String() != emptyStr {
-	//			tag := v.Type().Field(i).Tag.Get(jsonStructTag)
-	//			result += formatField(tag, field.String())
-	//		}
-	//	}
-	//}
-	//
-	//parseStruct(reflect.ValueOf(r).Elem())
-
 	return parseStructToADIString(r) + eorStr
 }

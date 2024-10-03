@@ -4,10 +4,10 @@
 
 # Introduction
 This library is *not* intended to be a complete implementation of the [ADIF spec](https://www.adif.org/), but was written
-as part of the **7Q-App**. The module is intended to be used in conjunction with the **7Q-App** and is not intended to be
-a standalone library. It can be used as a standalone, but it has its limitations. The module is **highly opinionated
-concerning what fields are and are not required** for a QSO to be considered valid; this is heavily influenced
-by QRZ.com and ClubLog.org
+as part of the **7Q-Station-Master-Desktop** application. The module is intended to be used in conjunction with
+**7Q-Station-Master-Desktop** and is not intended to bea standalone library. It can be used as a standalone,
+but it has its limitations. The module is **highly opinionated concerning what fields are and are not required**
+for a QSO to be considered valid; this is heavily influenced by QRZ.com and ClubLog.org
 
 # Development
 

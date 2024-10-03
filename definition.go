@@ -123,6 +123,6 @@ type Qsl struct {
 
 type Record struct {
 	HEADER *Header
-	QSO    *Qso
+	QSO    *Qso `validate:"required" errormsg:"QSO is required"`
 	QSL    *Qsl
 }
