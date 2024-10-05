@@ -11,7 +11,7 @@ for a QSO to be considered valid; this is heavily influenced by QRZ.com and Club
 
 # Development
 
-## Dependancies
+## Dependencies
 
 ```
 go get github.com/go-playground/validator/v10
