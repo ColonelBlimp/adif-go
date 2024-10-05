@@ -22,9 +22,16 @@ go get github.com/go-playground/validator/v10
 ## Creating a QSO
 
 ```
-	contactedStation := NewContactedStation("XX1XXX")
-	loggingStation := NewLoggingStation("Y1YY", "My Name")
-
+	contactedStation, err := NewContactedStation("XX1XXX")
+	if err != nil {
+	    ...
+	}
+	
+	loggingStation, err := NewLoggingStation("Y1YY", "My Name")
+	if err != nil {
+	    ...
+	}
+	
 	qso, err := NewQso("15m", "21.250", "USB", "20240929", "1621", "59", "59")
 	if err != nil {
 	    ...
