@@ -5,61 +5,28 @@ import (
 )
 
 func TestRecord(t *testing.T) {
-	qso := createQSOObject(t)
-
-	t.Log(qso.ADIString())
-
-	rec, err := NewRecord(qso)
+	record, err := NewRecord("3.1.4", "YYYYMMDD HHMMSS", "adif-go", "0.1.0")
 	if err != nil {
-		t.Error(err)
+		t.Fatal(err)
+	}
+	if record.ADIFVer != "3.1.4" {
+		t.Log("Version not set correctly")
 		t.FailNow()
 	}
-
-	if err = rec.SetQsl(NewQsl()); err != nil {
-		t.Error(err)
+	if record.CreatedTimestamp != "YYYYMMDD HHMMSS" {
+		t.Log("Timestamp not set correctly")
 		t.FailNow()
 	}
-
-	if err = rec.Validate(); err != nil {
-		t.Error(err)
+	if record.ProgramID != "adif-go" {
+		t.Log("Program ID not set correctly")
 		t.FailNow()
 	}
-
-	t.Log(rec.ADIString())
-}
-
-func createQSOObject(t *testing.T) *Qso {
-	contactedStation, err := NewContactedStation("XX1XXX", "Their Name")
-	if err != nil {
-		t.Error(err)
+	if record.ProgramVersion != "0.1.0" {
+		t.Log("Program version not set correctly")
 		t.FailNow()
 	}
-	loggingStation, err := NewLoggingStation("Y1YY")
-	if err != nil {
-		t.Error(err)
+	if err = record.Validate(); err != nil {
+		t.Log(err)
 		t.FailNow()
 	}
-
-	qso, err := NewQso("15m", "21.250", "USB", "20240929", "1621", "59", "59")
-	if err != nil {
-		t.Error(err)
-		t.FailNow()
-	}
-
-	if err = qso.SetContactedStation(contactedStation); err != nil {
-		t.Error(err)
-		t.FailNow()
-	}
-
-	if err = qso.SetLoggingStation(loggingStation); err != nil {
-		t.Error(err)
-		t.FailNow()
-	}
-
-	if err = qso.Validate(); err != nil {
-		t.Error(err)
-		t.FailNow()
-	}
-
-	return qso
 }

@@ -1,6 +1,9 @@
+//go:build windows
+
 package adif
 
 import (
+	"errors"
 	"github.com/go-playground/validator/v10"
 )
 
@@ -16,11 +19,19 @@ const (
 var validate *validator.Validate
 
 // NewRecord creates a new ADI Record object
-func NewRecord(qso *Qso) (*Record, error) {
-	if qso == nil {
-		return nil, ErrorNilQso
+func NewRecord(adifVersion, createdTimestamp, programID, programVersion string) (*Record, error) {
+	requiredFields := map[string]string{
+		"adifVersion":      adifVersion,
+		"createdTimestamp": createdTimestamp,
+		"programID":        programID,
+		"programVersion":   programVersion,
 	}
 
+	for field, value := range requiredFields {
+		if value == "" {
+			return nil, errors.New(field + " parameter is empty")
+		}
+	}
 	if validate == nil {
 		validate = validator.New()
 		if err := registerValidators(validate); err != nil {
@@ -29,25 +40,41 @@ func NewRecord(qso *Qso) (*Record, error) {
 	}
 
 	return &Record{
-		QSO: qso,
+		ADIFVer:          adifVersion,
+		CreatedTimestamp: createdTimestamp,
+		ProgramID:        programID,
+		ProgramVersion:   programVersion,
+		QsoSlice:         make(QsoSlice, 0),
 	}, nil
 }
 
-func (r *Record) SetHeader(ptr *Header) error {
+func (r *Record) AddQso(ptr *Qso) error {
 	if ptr == nil {
-		return ErrorNilHeader
+		return ErrorNilQso
 	}
-	r.HEADER = ptr
+	//if r.QSOS == nil {
+	//	r.QSOS = make(QsoSlice, 0)
+	//}
+	//r.QSOS = append(r.QSOS, ptr)
+
 	return nil
 }
 
-func (r *Record) SetQsl(ptr *Qsl) error {
-	if ptr == nil {
-		return ErrorNilQsl
-	}
-	r.QSL = ptr
-	return nil
-}
+//func (r *Record) SetHeader(ptr *Header) error {
+//	if ptr == nil {
+//		return ErrorNilHeader
+//	}
+//	r.HEADER = ptr
+//	return nil
+//}
+
+//func (r *Record) SetQsl(ptr *Qsl) error {
+//	if ptr == nil {
+//		return ErrorNilQsl
+//	}
+//	r.QSL = ptr
+//	return nil
+//}
 
 // Validate validates the Record object. The fields which are checked are:
 // Qso.Band, Qso.Freq, Qso.Mode, Qso.QsoDate, Qso.RstRcvd, Qso.RstSent, Qso.TimeOn

@@ -1,9 +1,29 @@
 package adif
 
-import "github.com/go-playground/validator/v10"
+import (
+	"errors"
+	"github.com/go-playground/validator/v10"
+)
 
-// NewQso creates a new Qso object
+// NewQso creates a new Qso object populated with the given data, which is the minimum required for a valid QSO
+// in the opinion of this module.
 func NewQso(band, frequency, mode, qsoDate, timeOn, rstRcvd, rstSent string) (*Qso, error) {
+	requiredFields := map[string]string{
+		"band":      band,
+		"frequency": frequency,
+		"mode":      mode,
+		"qsoDate":   qsoDate,
+		"timeOn":    timeOn,
+		"rstRcvd":   rstRcvd,
+		"rstSent":   rstSent,
+	}
+
+	for field, value := range requiredFields {
+		if value == "" {
+			return nil, errors.New(field + " parameter is empty")
+		}
+	}
+
 	if validate == nil {
 		validate = validator.New()
 		if err := registerValidators(validate); err != nil {
@@ -42,6 +62,15 @@ func (q *Qso) SetContactedStation(ptr *ContactedStation) error {
 	return nil
 }
 
+func (q *Qso) SetQsl(ptr *Qsl) error {
+	if ptr == nil {
+		return ErrorNilQsl
+	}
+	q.Qsl = ptr
+	return nil
+}
+
+// ADIString returns the ADI string representation of the Qso object
 func (q *Qso) ADIString() string {
 	return parseStructToADIString(q) + eorStr
 }
