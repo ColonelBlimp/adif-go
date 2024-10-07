@@ -29,4 +29,5 @@ func TestRecord(t *testing.T) {
 		t.Log(err)
 		t.FailNow()
 	}
+	t.Log(record.ADIHeaderString())
 }

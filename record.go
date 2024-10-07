@@ -53,6 +53,16 @@ func (r *Record) AddQso(ptr *Qso) error {
 	if ptr == nil {
 		return ErrorNilQso
 	}
+	if ptr.ContactedStation == nil {
+		return ErrorNilContactedStation
+	}
+	if ptr.LoggingStation == nil {
+		return ErrorNilLoggingStation
+	}
+	if ptr.Qsl == nil {
+		return ErrorNilQsl
+	}
+
 	if r.QsoSlice == nil {
 		r.QsoSlice = make(QsoSlice, 0)
 	}
@@ -68,6 +78,6 @@ func (r *Record) Validate() error {
 	return ValidateFunc[Record](*r, validate)
 }
 
-func (r *Record) ADIString() string {
-	return parseStructToADIString(r) + eorStr
+func (r *Record) ADIHeaderString() string {
+	return parseStructToADIString(r) + eohStr
 }

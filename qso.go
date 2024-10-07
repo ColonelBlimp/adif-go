@@ -82,7 +82,7 @@ func (q *Qso) SetQsl(ptr *Qsl) error {
 	return nil
 }
 
-// ADIString returns the ADI string representation of the Qso object
-func (q *Qso) ADIString() string {
+// ADIQsoString returns the ADI string representation of the Qso object
+func (q *Qso) ADIQsoString() string {
 	return parseStructToADIString(q) + eorStr
 }
