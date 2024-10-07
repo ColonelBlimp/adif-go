@@ -63,14 +63,16 @@ func ValidateFunc[T interface{}](obj interface{}, validate *validator.Validate) 
 	}()
 
 	if err := validate.Struct(o); err != nil {
-		errorValid := err.(validator.ValidationErrors)
-		for _, e := range errorValid {
-			snp := e.StructNamespace()
-			errmgs := errorTagFunc[T](obj, snp, e.Field(), e.ActualTag())
-			if errmgs != nil {
-				errs = errors.Join(errs, fmt.Errorf("%w", errmgs))
-			} else {
-				errs = errors.Join(errs, fmt.Errorf("%w", e))
+		var errorValid validator.ValidationErrors
+		if ok := errors.As(err, &errorValid); ok {
+			for _, e := range errorValid {
+				snp := e.StructNamespace()
+				errmgs := errorTagFunc[T](obj, snp, e.Field(), e.ActualTag())
+				if errmgs != nil {
+					errs = errors.Join(errs, fmt.Errorf("%w", errmgs))
+				} else {
+					errs = errors.Join(errs, fmt.Errorf("%w", e))
+				}
 			}
 		}
 	}
