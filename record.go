@@ -13,7 +13,7 @@ const (
 	jsonStructTag = "json"
 	emptyStr      = ""
 	dotStr        = "."
-	eorStr        = "<EOR>"
+	eorStr        = "<eor>"
 )
 
 var validate *validator.Validate
@@ -48,33 +48,17 @@ func NewRecord(adifVersion, createdTimestamp, programID, programVersion string) 
 	}, nil
 }
 
+// AddQso adds a Qso object to the Record object. If the Qso object is nil, the function returns an error.
 func (r *Record) AddQso(ptr *Qso) error {
 	if ptr == nil {
 		return ErrorNilQso
 	}
-	//if r.QSOS == nil {
-	//	r.QSOS = make(QsoSlice, 0)
-	//}
-	//r.QSOS = append(r.QSOS, ptr)
-
+	if r.QsoSlice == nil {
+		r.QsoSlice = make(QsoSlice, 0)
+	}
+	r.QsoSlice = append(r.QsoSlice, ptr)
 	return nil
 }
-
-//func (r *Record) SetHeader(ptr *Header) error {
-//	if ptr == nil {
-//		return ErrorNilHeader
-//	}
-//	r.HEADER = ptr
-//	return nil
-//}
-
-//func (r *Record) SetQsl(ptr *Qsl) error {
-//	if ptr == nil {
-//		return ErrorNilQsl
-//	}
-//	r.QSL = ptr
-//	return nil
-//}
 
 // Validate validates the Record object. The fields which are checked are:
 // Qso.Band, Qso.Freq, Qso.Mode, Qso.QsoDate, Qso.RstRcvd, Qso.RstSent, Qso.TimeOn

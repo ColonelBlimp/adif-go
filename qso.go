@@ -32,13 +32,16 @@ func NewQso(band, frequency, mode, qsoDate, timeOn, rstRcvd, rstSent string) (*Q
 	}
 
 	return &Qso{
-		Band:    band,
-		Freq:    frequency,
-		Mode:    mode,
-		QsoDate: qsoDate,
-		RstRcvd: rstRcvd,
-		RstSent: rstSent,
-		TimeOn:  timeOn,
+		Band:             band,
+		Freq:             frequency,
+		Mode:             mode,
+		QsoDate:          qsoDate,
+		RstRcvd:          rstRcvd,
+		RstSent:          rstSent,
+		TimeOn:           timeOn,
+		LoggingStation:   new(LoggingStation),
+		ContactedStation: new(ContactedStation),
+		Qsl:              new(Qsl),
 	}, nil
 }
 
@@ -50,6 +53,9 @@ func (q *Qso) SetLoggingStation(ptr *LoggingStation) error {
 	if ptr == nil {
 		return ErrorNilLoggingStation
 	}
+	if q.LoggingStation == nil {
+		q.LoggingStation = new(LoggingStation)
+	}
 	q.LoggingStation = ptr
 	return nil
 }
@@ -58,6 +64,9 @@ func (q *Qso) SetContactedStation(ptr *ContactedStation) error {
 	if ptr == nil {
 		return ErrorNilContactedStation
 	}
+	if q.ContactedStation == nil {
+		q.ContactedStation = new(ContactedStation)
+	}
 	q.ContactedStation = ptr
 	return nil
 }
@@ -65,6 +74,9 @@ func (q *Qso) SetContactedStation(ptr *ContactedStation) error {
 func (q *Qso) SetQsl(ptr *Qsl) error {
 	if ptr == nil {
 		return ErrorNilQsl
+	}
+	if q.Qsl == nil {
+		q.Qsl = new(Qsl)
 	}
 	q.Qsl = ptr
 	return nil
