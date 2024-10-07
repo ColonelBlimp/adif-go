@@ -14,7 +14,14 @@ const (
 	eohStr       = "<eoh>"
 )
 
-func Unmarshal(data []byte, r *Record) error {
+// UnmarshalADI parses the provided ADI data and populates the given Record.
+// data: the ADI data in byte slice format
+// r: pointer to the Record struct to be populated
+// Returns an error if the input Record pointer is nil or if there are issues during unmarshalling
+// NOTES:
+// As a Record object, use json.Marshal to convert the Record object to JSON format and
+// json.Unmarshal to convert the JSON object back to a Record object or another struct with the same tags.
+func UnmarshalADI(data []byte, r *Record) error {
 	if r == nil {
 		return errors.New("nil pointer passed to Unmarshal")
 	}
