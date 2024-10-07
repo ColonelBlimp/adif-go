@@ -5,11 +5,11 @@ package adif
 import "testing"
 
 func TestNewQso(t *testing.T) {
-	qso, err := NewQso("20M", "14.200", "SSB", "20210606", "1200", "59", "59")
+	qso, err := NewQso("20m", "14.200", "USB", "20210606", "1200", "59", "59")
 	if err != nil {
 		t.Fatal(err)
 	}
-	if qso.Band != "20M" {
+	if qso.Band != "20m" {
 		t.Log("Band not set correctly")
 		t.FailNow()
 	}
@@ -17,7 +17,7 @@ func TestNewQso(t *testing.T) {
 		t.Log("Frequency not set correctly")
 		t.FailNow()
 	}
-	if qso.Mode != "SSB" {
+	if qso.Mode != "USB" {
 		t.Log("Mode not set correctly")
 		t.FailNow()
 	}
@@ -59,6 +59,14 @@ func TestNewQso(t *testing.T) {
 	}
 	if err = qso.SetLoggingStation(ls); err != nil {
 		t.Error(err)
+		t.FailNow()
+	}
+	if err = qso.SetQsl(NewQsl()); err != nil {
+		t.Error(err)
+		t.FailNow()
+	}
+	if err = qso.Validate(); err != nil {
+		t.Log(err)
 		t.FailNow()
 	}
 

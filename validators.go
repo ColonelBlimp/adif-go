@@ -110,7 +110,7 @@ func validateBand(fl validator.FieldLevel) bool {
 func validateMode(fl validator.FieldLevel) bool {
 	mode := fl.Field().String()
 	switch mode {
-	case "LSB", "USB", "CW-L", "CW-U", "FM", "FM-N", "AM", "AM-N", "RTTY-L", "RTTY-U", "PSK", "DATA-L", "DATA-U", "DATA-FM", "DATA-FM-N":
+	case "SSB", "LSB", "USB", "CW-L", "CW-U", "FM", "FM-N", "AM", "AM-N", "RTTY-L", "RTTY-U", "PSK", "DATA-L", "DATA-U", "DATA-FM", "DATA-FM-N":
 		return true
 	default:
 		return false
