@@ -68,46 +68,46 @@ type ContactedStation struct {
 }
 
 type LoggingStation struct {
-	AntAZ           string `json:"ant_az,omitempty"`
-	AntEL           string `json:"ant_el,omitempty"`
-	BandRX          string `json:"band_rx,omitempty"` // BandRX in a split frequency QSO, the logging station's receiving band
-	FreqRX          string `json:"freq_rx,omitempty"` // FreqRX in a split frequency QSO, the logging station's receiving frequency in Megahertz
-	Altitude        string `json:"my_altitude,omitempty"`
-	Antenna         string `json:"my_antenna,omitempty"`
-	AntennaIntl     string `json:"my_antenna_intl,omitempty"`
-	City            string `json:"my_city,omitempty"`
-	Country         string `json:"my_country,omitempty"`
-	CountryIntl     string `json:"my_country_intl,omitempty"`
-	CQZone          string `json:"my_cq_zone,omitempty"`
-	DXCC            string `json:"my_dxcc,omitempty"`
-	Gridsquare      string `json:"my_gridsquare,omitempty"`
-	GridsquareExt   string `json:"my_gridsquare_ext,omitempty"`
-	IOTA            string `json:"my_iota,omitempty"`
-	IotaIslandID    string `json:"my_iota_island_id,omitempty"`
-	ItuZone         string `json:"my_itu_zone,omitempty"`
-	Lat             string `json:"my_lat,omitempty"`
-	Lon             string `json:"my_lon,omitempty"`
-	Name            string `json:"my_name"`                // Name: the logging operator's name
-	NameIntl        string `json:"my_name_intl,omitempty"` // NameIntl: the logging operator's name
-	PostalCode      string `json:"my_postal_code,omitempty"`
-	PostalCodeIntl  string `json:"my_postal_code_intl,omitempty"`
-	PotaRef         string `json:"my_pota_ref,omitempty"`
-	Rig             string `json:"my_rig,omitempty"`
-	RigIntl         string `json:"my_rig_intl,omitempty"`
-	Sig             string `json:"my_sig,omitempty"`
-	SigIntl         string `json:"my_sig_intl,omitempty"`
-	SigInfo         string `json:"my_sig_info,omitempty"`
-	SigInfoIntl     string `json:"my_sig_info_intl,omitempty"`
-	SotaRef         string `json:"my_sota_ref,omitempty"`
-	State           string `json:"my_state,omitempty"`
-	Street          string `json:"my_street,omitempty"`
-	StreetIntl      string `json:"my_street_intl,omitempty"`
-	Notes           string `json:"notes,omitempty"`
-	NotesIntl       string `json:"notes_intl,omitempty"`
-	Operator        string `json:"operator,omitempty"` // Operator: the logging operator's callsign if StationCallsign is absent
-	OwnerCallsign   string `json:"owner_callsign,omitempty"`
-	StationCallsign string `json:"station_callsign" validate:"required"` // StationCallsign: the logging station's callsign (the callsign used over the air). If StationCallsign is absent, Operator shall be treated as both the logging station's callsign and the logging operator's callsign
-	TxPwr           string `json:"tx_pwr,omitempty"`
+	AntAZ            string `json:"ant_az,omitempty"`
+	AntEL            string `json:"ant_el,omitempty"`
+	BandRX           string `json:"band_rx,omitempty"` // BandRX in a split frequency QSO, the logging station's receiving band
+	FreqRX           string `json:"freq_rx,omitempty"` // FreqRX in a split frequency QSO, the logging station's receiving frequency in Megahertz
+	MyAltitude       string `json:"my_altitude,omitempty"`
+	MyAntenna        string `json:"my_antenna,omitempty"`
+	MyAntennaIntl    string `json:"my_antenna_intl,omitempty"`
+	MyCity           string `json:"my_city,omitempty"`
+	MyCountry        string `json:"my_country,omitempty"`
+	MyCountryIntl    string `json:"my_country_intl,omitempty"`
+	MyCQZone         string `json:"my_cq_zone,omitempty"`
+	MyDXCC           string `json:"my_dxcc,omitempty"`
+	MyGridsquare     string `json:"my_gridsquare,omitempty"`
+	MyGridsquareExt  string `json:"my_gridsquare_ext,omitempty"`
+	MyIOTA           string `json:"my_iota,omitempty"`
+	MyIotaIslandID   string `json:"my_iota_island_id,omitempty"`
+	MyItuZone        string `json:"my_itu_zone,omitempty"`
+	MyLat            string `json:"my_lat,omitempty"`
+	MyLon            string `json:"my_lon,omitempty"`
+	MyName           string `json:"my_name"`                // Name: the logging operator's name
+	MyNameIntl       string `json:"my_name_intl,omitempty"` // NameIntl: the logging operator's name
+	MyPostalCode     string `json:"my_postal_code,omitempty"`
+	MyPostalCodeIntl string `json:"my_postal_code_intl,omitempty"`
+	MyPotaRef        string `json:"my_pota_ref,omitempty"`
+	MyRig            string `json:"my_rig,omitempty"`
+	MyRigIntl        string `json:"my_rig_intl,omitempty"`
+	MySig            string `json:"my_sig,omitempty"`
+	MySigIntl        string `json:"my_sig_intl,omitempty"`
+	MySigInfo        string `json:"my_sig_info,omitempty"`
+	MySigInfoIntl    string `json:"my_sig_info_intl,omitempty"`
+	MySotaRef        string `json:"my_sota_ref,omitempty"`
+	MyState          string `json:"my_state,omitempty"`
+	MyStreet         string `json:"my_street,omitempty"`
+	MyStreetIntl     string `json:"my_street_intl,omitempty"`
+	Notes            string `json:"notes,omitempty"`
+	NotesIntl        string `json:"notes_intl,omitempty"`
+	Operator         string `json:"operator,omitempty"` // Operator: the logging operator's callsign if StationCallsign is absent
+	OwnerCallsign    string `json:"owner_callsign,omitempty"`
+	StationCallsign  string `json:"station_callsign" validate:"required"` // StationCallsign: the logging station's callsign (the callsign used over the air). If StationCallsign is absent, Operator shall be treated as both the logging station's callsign and the logging operator's callsign
+	TxPwr            string `json:"tx_pwr,omitempty"`
 }
 
 type Qsl struct {
