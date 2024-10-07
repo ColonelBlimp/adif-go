@@ -28,9 +28,7 @@ func UnmarshalADI(data []byte, r *Record) error {
 	if r.QsoSlice == nil {
 		r.QsoSlice = make(QsoSlice, 0)
 	}
-	var qso = new(Qso)
-	qso.ContactedStation = new(ContactedStation)
-	qso.LoggingStation = new(LoggingStation)
+	var qso = newEmptyQso()
 
 	lines := strings.Split(string(data), newLineStr)
 
@@ -41,9 +39,7 @@ func UnmarshalADI(data []byte, r *Record) error {
 		}
 		if strings.ToLower(line) == eorStr {
 			r.QsoSlice = append(r.QsoSlice, qso)
-			qso = new(Qso)
-			qso.ContactedStation = new(ContactedStation)
-			qso.LoggingStation = new(LoggingStation)
+			qso = newEmptyQso()
 		}
 		if strings.HasPrefix(line, chevronLeft) && strings.Contains(line, colonStr) && strings.Contains(line, chevronRight) {
 			parts := strings.SplitN(line, colonStr, 2)
@@ -52,34 +48,28 @@ func UnmarshalADI(data []byte, r *Record) error {
 			value := strings.TrimSpace(sub[1])
 
 			fieldName, found := findJSONTagByName(r, key)
+			if !found {
+				fieldName, found = findJSONTagByName(qso, key)
+			}
+			if !found {
+				fieldName, found = findJSONTagByName(qso.ContactedStation, key)
+			}
+			if !found {
+				fieldName, found = findJSONTagByName(qso.LoggingStation, key)
+			}
 			if found {
 				field := reflect.ValueOf(r).Elem().FieldByName(fieldName)
+				if !field.IsValid() || !field.CanSet() {
+					field = reflect.ValueOf(qso).Elem().FieldByName(fieldName)
+				}
+				if !field.IsValid() || !field.CanSet() {
+					field = reflect.ValueOf(qso.ContactedStation).Elem().FieldByName(fieldName)
+				}
+				if !field.IsValid() || !field.CanSet() {
+					field = reflect.ValueOf(qso.LoggingStation).Elem().FieldByName(fieldName)
+				}
 				if field.IsValid() && field.CanSet() {
 					field.SetString(value)
-				}
-			} else {
-				fieldName, found = findJSONTagByName(qso, key)
-				if found {
-					field := reflect.ValueOf(qso).Elem().FieldByName(fieldName)
-					if field.IsValid() && field.CanSet() {
-						field.SetString(value)
-					}
-				} else {
-					fieldName, found = findJSONTagByName(qso.ContactedStation, key)
-					if found {
-						field := reflect.ValueOf(qso.ContactedStation).Elem().FieldByName(fieldName)
-						if field.IsValid() && field.CanSet() {
-							field.SetString(value)
-						}
-					} else {
-						fieldName, found = findJSONTagByName(qso.LoggingStation, key)
-						if found {
-							field := reflect.ValueOf(qso.LoggingStation).Elem().FieldByName(fieldName)
-							if field.IsValid() && field.CanSet() {
-								field.SetString(value)
-							}
-						}
-					}
 				}
 			}
 		}
@@ -105,4 +95,11 @@ func findJSONTagByName(v interface{}, tagName string) (string, bool) {
 		}
 	}
 	return emptyStr, false
+}
+
+func newEmptyQso() *Qso {
+	return &Qso{
+		ContactedStation: &ContactedStation{},
+		LoggingStation:   &LoggingStation{},
+	}
 }
