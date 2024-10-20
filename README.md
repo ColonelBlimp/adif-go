@@ -64,3 +64,5 @@ The required fields for a valid QSO are:
 - ContactStation.Call
 - ContactStation.Name
 - LoggingStation.StationCallsign
+- QslSent
+- QslRcvd
