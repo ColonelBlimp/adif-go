@@ -53,7 +53,8 @@ func errorTagFunc[T interface{}](obj interface{}, snp string, fieldname, actualT
 	return nil
 }
 
-func ValidateFunc[T interface{}](obj interface{}, validate *validator.Validate) (errs error) {
+// ValidateFunc do not use this function use validates the object using the validator.Validate instance.
+func validateFunc[T interface{}](obj interface{}, validate *validator.Validate) (errs error) {
 	o := obj.(T)
 
 	defer func() {
@@ -117,4 +118,18 @@ func validateMode(fl validator.FieldLevel) bool {
 	default:
 		return false
 	}
+}
+
+// Validate checks the provided object against the rules defined by the validators in validate.
+// It registers custom validators if they are not already registered. This function is exported and can be used
+// outside the module to validate structs which embed the adifgo structs. Returns an error if validation fails.
+func Validate[T interface{}](obj interface{}) error {
+	if validate == nil {
+		validate = validator.New()
+		if err := registerValidators(validate); err != nil {
+			return err
+		}
+	}
+
+	return validateFunc[T](obj, validate)
 }

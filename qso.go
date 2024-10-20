@@ -46,7 +46,7 @@ func NewQso(band, frequency, mode, qsoDate, timeOn, rstRcvd, rstSent string) (*Q
 }
 
 func (q *Qso) Validate() error {
-	return ValidateFunc[Qso](*q, validate)
+	return validateFunc[Qso](*q, validate)
 }
 
 func (q *Qso) SetLoggingStation(ptr *LoggingStation) error {

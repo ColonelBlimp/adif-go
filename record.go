@@ -75,7 +75,7 @@ func (r *Record) AddQso(ptr *Qso) error {
 // ContactedStation.Call, LoggingStation.Name, LoggingStation.StationCallsign
 // If any of the fields are invalid, the function returns an error with an appropriate error message.
 func (r *Record) Validate() error {
-	return ValidateFunc[Record](*r, validate)
+	return validateFunc[Record](*r, validate)
 }
 
 func (r *Record) ADIHeaderString() string {
