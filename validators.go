@@ -93,7 +93,7 @@ func validateFrequency(fl validator.FieldLevel) bool {
 	if !isNthRuneFromRightEqual(freq, 4, '.') {
 		return false
 	}
-	parts := strings.Split(freq, emptyStr)
+	parts := strings.Split(freq, dotStr)
 	if !isAllDigits(parts[0]) || !isAllDigits(parts[1]) {
 		return false
 	}
